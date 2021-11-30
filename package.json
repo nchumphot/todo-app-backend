@@ -16,7 +16,6 @@
     "pg": "^8.7.1"
   },
   "scripts": {
-    "start-server": "ts-node-dev src/server.ts",
-    "start": "node index.js"
+    "start": "ts-node src/server.ts"
   }
 }
