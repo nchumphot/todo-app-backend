@@ -12,6 +12,15 @@ client.connect().then(() => {
   app.use(express.json());
   app.use(cors());
 
+  // HOME PAGE
+  app.get("/", async (req, res) => {
+    const result = await client.query("SELECT * FROM todo;");
+    res.status(200).json({
+      status: "success",
+      result,
+    });
+  });
+
   // GET ALL TODOS
   app.get("/todos", async (req, res) => {
     const result = await client.query("SELECT * FROM todo;");
