@@ -2,6 +2,7 @@ import cors from "cors";
 import express from "express";
 import dotenv from "dotenv";
 import { client } from "./db";
+import filePath from "./filePath";
 
 dotenv.config();
 
@@ -13,12 +14,10 @@ client.connect().then(() => {
   app.use(cors());
 
   // HOME PAGE
-  app.get("/", async (req, res) => {
-    const result = await client.query("SELECT * FROM todo;");
-    res.status(200).json({
-      status: "success",
-      result,
-    });
+  app.get("/", (req, res) => {
+    const pathToFile = filePath("../public/index.html");
+    console.log(pathToFile);
+    res.sendFile(pathToFile);
   });
 
   // GET ALL TODOS
