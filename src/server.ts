@@ -32,7 +32,7 @@ client.connect().then(() => {
   // GET A TODO BY ID
   app.get("/todos/:todo_id", async (req, res) => {
     const todo_id = parseInt(req.params.todo_id);
-    const result = await client.query("SELECT * FROM todo WHERE id = $1;", [
+    const result = await client.query("SELECT * FROM todos WHERE id = $1;", [
       todo_id,
     ]);
     if (result.rowCount !== 0) {
@@ -55,7 +55,7 @@ client.connect().then(() => {
     const todo_id = parseInt(req.params.todo_id);
     const { description, dueDate } = req.body;
     const result = await client.query(
-      "UPDATE todo SET description = $1, duedate = $2 WHERE id = $3 RETURNING *;",
+      "UPDATE todos SET description = $1, duedate = $2 WHERE id = $3 RETURNING *;",
       [description, dueDate, todo_id]
     );
     if (result.rowCount !== 0) {
@@ -77,7 +77,7 @@ client.connect().then(() => {
   app.post("/todos", async (req, res) => {
     const { description, dueDate } = req.body;
     const result = await client.query(
-      "INSERT INTO todo (description, duedate) VALUES ($1, $2) RETURNING *",
+      "INSERT INTO todos (description, duedate) VALUES ($1, $2) RETURNING *",
       [description, dueDate]
     );
     res.status(201).json({
@@ -90,7 +90,7 @@ client.connect().then(() => {
   app.delete("/todos/:todo_id", async (req, res) => {
     const todo_id = parseInt(req.params.todo_id);
     const deletedTodo = await client.query(
-      "DELETE FROM todo WHERE id = $1 RETURNING *",
+      "DELETE FROM todos WHERE id = $1 RETURNING *",
       [todo_id]
     );
     res.status(200).json({
