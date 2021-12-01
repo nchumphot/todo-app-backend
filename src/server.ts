@@ -105,6 +105,6 @@ client.connect().then(() => {
   const PORT_NUMBER = process.env.PORT ?? 4000;
 
   app.listen(PORT_NUMBER, () => {
-    console.log("Server listening on port 5000!");
+    console.log(`Server listening on port ${PORT_NUMBER}!`);
   });
 });
