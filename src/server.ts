@@ -53,9 +53,9 @@ client.connect().then(() => {
   // UPDATE A TODO BY ID
   app.put("/todos/:todo_id", async (req, res) => {
     const todo_id = parseInt(req.params.todo_id);
-    const { description, due_date } = req.body;
+    const { description, due_date, is_complete } = req.body;
     const result = await client.query(
-      "UPDATE todos SET description = $1, due_date = $2 WHERE id = $3 RETURNING *;",
+      "UPDATE todos SET description = $1, due_date = $2, is_complete = $3 WHERE id = $4 RETURNING *;",
       [description, due_date, todo_id]
     );
     if (result.rowCount !== 0) {
