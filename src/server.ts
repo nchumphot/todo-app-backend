@@ -22,7 +22,7 @@ client.connect().then(() => {
 
   // GET ALL TODOS
   app.get("/todos", async (req, res) => {
-    const result = await client.query("SELECT * FROM todo;");
+    const result = await client.query("SELECT * FROM todos;");
     res.status(200).json({
       status: "success",
       result,
