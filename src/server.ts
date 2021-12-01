@@ -53,10 +53,10 @@ client.connect().then(() => {
   // UPDATE A TODO BY ID
   app.put("/todos/:todo_id", async (req, res) => {
     const todo_id = parseInt(req.params.todo_id);
-    const { description, dueDate } = req.body;
+    const { description, due_date } = req.body;
     const result = await client.query(
-      "UPDATE todos SET description = $1, duedate = $2 WHERE id = $3 RETURNING *;",
-      [description, dueDate, todo_id]
+      "UPDATE todos SET description = $1, due_date = $2 WHERE id = $3 RETURNING *;",
+      [description, due_date, todo_id]
     );
     if (result.rowCount !== 0) {
       res.status(200).json({
@@ -75,10 +75,10 @@ client.connect().then(() => {
 
   // ADD A TODO
   app.post("/todos", async (req, res) => {
-    const { description, dueDate } = req.body;
+    const { description, due_date } = req.body;
     const result = await client.query(
-      "INSERT INTO todos (description, duedate) VALUES ($1, $2) RETURNING *",
-      [description, dueDate]
+      "INSERT INTO todos (description, due_date) VALUES ($1, $2) RETURNING *",
+      [description, due_date]
     );
     res.status(201).json({
       status: "success",
